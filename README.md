@@ -16,7 +16,7 @@ After:
 
 ``` go
 f := cli.Flags()
-fang.F(fs).
+fang.F(f).
     Flag(f.String, "db", "", "Database connection string").
     Env(f.String, "ENV", env", "", "Environment")
 ```
