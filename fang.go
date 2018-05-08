@@ -8,15 +8,17 @@ import (
 	"github.com/spf13/viper"
 )
 
+// F takes a flag set and creates a fang instance to create flags/envs with.
 func F(fs *pflag.FlagSet) *Fang {
 	return &Fang{fs: fs}
 }
 
+// Fang is use to chain Flag and Env calls.
 type Fang struct {
 	fs *pflag.FlagSet
 }
 
-// Flag takes in a creator func for the flag and its args. For example Flag(cli.Flags().String,
+// Flag takes a creator func for the flag and its args. For example Flag(cli.Flags().String,
 // "name", "value", "usage").
 func (f *Fang) Flag(fn interface{}, args ...interface{}) *Fang {
 	name := args[0].(string)
@@ -32,7 +34,7 @@ func (f *Fang) Flag(fn interface{}, args ...interface{}) *Fang {
 	return f
 }
 
-// Env takes in a creator func for the flag/env, its env var name, and the flag's args. For example Env(cli.Flags().String,
+// Env takes a creator func for the flag/env, its env var name, and the flag's args. For example Env(cli.Flags().String,
 // "NAME", "name", "value", "usage").
 func (f *Fang) Env(fn interface{}, args ...interface{}) *Fang {
 	envvar := args[0].(string)
