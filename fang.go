@@ -16,7 +16,7 @@ type Fang struct {
 	fs *pflag.FlagSet
 }
 
-func (f *Fang) Flag(fn interface{}, args ...interface{}) {
+func (f *Fang) Flag(fn interface{}, args ...interface{}) *Fang {
 	name := args[0].(string)
 	argsv := make([]reflect.Value, len(args))
 	for i, v := range args {
@@ -27,13 +27,15 @@ func (f *Fang) Flag(fn interface{}, args ...interface{}) {
 	if err := viper.BindPFlag(name, f.fs.Lookup(name)); err != nil {
 		panic(fmt.Sprintf("fang: failed to lookup flag: %s", err.Error()))
 	}
+	return f
 }
 
-func (f *Fang) Env(fn interface{}, args ...interface{}) {
+func (f *Fang) Env(fn interface{}, args ...interface{}) *Fang {
 	envvar := args[0].(string)
 	name := args[1].(string)
 	f.Flag(fn, args[1:]...)
 	if err := viper.BindEnv(name, envvar); err != nil {
 		panic(fmt.Sprintf("fang: failed to lookup flag: %s", err.Error()))
 	}
+	return f
 }
