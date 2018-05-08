@@ -3,7 +3,7 @@
 Before:
 
 
-```
+``` go
 cli.Flags().String("db", "", "Database connection string")
 cli.Flags().String("env", "", "Environment")
 
@@ -14,7 +14,7 @@ viper.BindEnv("env", "ENV")
 
 After:
 
-```
+``` go
 fang.F(cli.Flags()).
     Flag("db", "", "Database connection string").
     Env("ENV", env", "", "Environment")
