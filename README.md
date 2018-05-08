@@ -15,8 +15,8 @@ viper.BindEnv("env", "ENV")
 After:
 
 ``` go
-fs := cli.Flags()
+f := cli.Flags()
 fang.F(fs).
-    Flag(fs.String, "db", "", "Database connection string").
-    Env(fs.String, "ENV", env", "", "Environment")
+    Flag(f.String, "db", "", "Database connection string").
+    Env(f.String, "ENV", env", "", "Environment")
 ```
