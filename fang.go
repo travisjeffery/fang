@@ -16,6 +16,8 @@ type Fang struct {
 	fs *pflag.FlagSet
 }
 
+// Flag takes in a creator func for the flag and its args. For example Flag(cli.Flags().String,
+// "name", "value", "usage").
 func (f *Fang) Flag(fn interface{}, args ...interface{}) *Fang {
 	name := args[0].(string)
 	argsv := make([]reflect.Value, len(args))
@@ -30,6 +32,8 @@ func (f *Fang) Flag(fn interface{}, args ...interface{}) *Fang {
 	return f
 }
 
+// Env takes in a creator func for the flag/env, its env var name, and the flag's args. For example Env(cli.Flags().String,
+// "NAME", "name", "value", "usage").
 func (f *Fang) Env(fn interface{}, args ...interface{}) *Fang {
 	envvar := args[0].(string)
 	name := args[1].(string)
