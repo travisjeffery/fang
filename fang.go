@@ -1,6 +1,7 @@
 package fang
 
 import (
+	"fmt"
 	"reflect"
 
 	"github.com/spf13/pflag"
@@ -23,12 +24,16 @@ func (f *Fang) Flag(fn interface{}, args ...interface{}) {
 	}
 	fv := reflect.ValueOf(fn)
 	fv.Call(argsv)
-	viper.BindPFlag(name, f.fs.Lookup(name))
+	if err := viper.BindPFlag(name, f.fs.Lookup(name)); err != nil {
+		panic(fmt.Sprintf("fang: failed to lookup flag: %s", err.Error()))
+	}
 }
 
 func (f *Fang) Env(fn interface{}, args ...interface{}) {
 	envvar := args[0].(string)
 	name := args[1].(string)
 	f.Flag(fn, args[1:]...)
-	viper.BindEnv(name, envvar)
+	if err := viper.BindEnv(name, envvar); err != nil {
+		panic(fmt.Sprintf("fang: failed to lookup flag: %s", err.Error()))
+	}
 }
