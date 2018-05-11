@@ -11,9 +11,15 @@ Before:
 cli.Flags().String("db", "", "Database connection string")
 cli.Flags().String("env", "", "Environment")
 
-viper.BindPFlag("db", cli.Flags().Lookup("db"))
-viper.BindPFlag("env", cli.Flags().Lookup("env"))
-viper.BindEnv("env", "ENV")
+if err := viper.BindPFlag("db", cli.Flags().Lookup("db")); err != nil {
+    panic(err)
+}
+if err := viper.BindPFlag("env", cli.Flags().Lookup("env")); err != nil {
+    panic(err)
+}
+if err := viper.BindEnv("env", "ENV"); err != nil {
+    panic(err)
+}
 ```
 
 After:
